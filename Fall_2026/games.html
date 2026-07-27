@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games | LearnESL</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Custom shadow matching the screenshot's soft UI */
+    .screenshot-card {
+      background-color: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      transition: all 0.3s ease;
+    }
+    .screenshot-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+    /* Red button style from screenshot */
+    .btn-red-play {
+      background-color: #ff6b6b;
+      color: white;
+      box-shadow: 0 4px 14px rgba(255, 107, 107, 0.3);
+      transition: all 0.2s ease;
+    }
+    .btn-red-play:hover {
+      background-color: #fa5252;
+      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    }
+  </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen bg-[#f8fafc]">
+
+  <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="bg-[#ff7b5a] text-white p-2.5 rounded-xl shadow-sm"><i class="fa-solid fa-book-open"></i></div>
+        <div>
+          <h1 class="text-xl font-extrabold text-slate-800 tracking-tight">LearnESL</h1>
+          <p class="text-[9px] font-bold text-slate-400 tracking-widest uppercase">Semester 1 • Fall 2026</p>
+        </div>
+      </a>
+      <div class="hidden md:flex gap-2 text-sm font-bold text-slate-500">
+        <a href="index.html" class="px-5 py-2.5 hover:bg-slate-50 rounded-full flex items-center gap-2 transition"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="dictionary\dictionary.html" class="px-5 py-2.5 hover:bg-slate-50 rounded-full flex items-center gap-2 transition"><i class="fa-solid fa-book"></i> Dictionary</a>
+        <a href="categories.html" class="px-5 py-2.5 hover:bg-slate-50 rounded-full flex items-center gap-2 transition"><i class="fa-solid fa-layer-group"></i> Categories</a>
+        <a href="games.html" class="px-5 py-2.5 bg-[#e0f2fe] text-[#0284c7] rounded-full flex items-center gap-2 transition"><i class="fa-solid fa-gamepad"></i> Games</a>
+      </div>
+      <button class="text-xl text-slate-400 hover:text-slate-700 transition"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+  </nav>
+
+  <main class="flex-grow max-w-7xl mx-auto w-full px-6 py-10">
+    
+    <div class="bg-[#2d3748] rounded-[40px] py-16 px-6 text-center text-white mb-12 shadow-lg">
+      <div class="bg-[#6366f1] w-16 h-16 mx-auto rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-md">
+        <i class="fa-solid fa-gamepad"></i>
+      </div>
+      <h2 class="text-4xl font-black mb-4 tracking-tight">Interactive Games</h2>
+      <p class="text-slate-300 font-medium text-lg max-w-xl mx-auto">Practice your English skills with our interactive and fun mini-games.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-12">
+      
+      <div class="screenshot-card p-8 flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-2xl bg-[#eff6ff] text-[#3b82f6] flex items-center justify-center text-3xl mb-6">
+          <i class="fa-solid fa-font"></i>
+        </div>
+        <h3 class="text-xl font-extrabold text-[#1e293b] mb-3">Reading Comprehension</h3>
+        <p class="text-sm font-medium text-slate-500 mb-8 leading-relaxed">Test your understanding of lessons with interactive quizzes.</p>
+        <a href="games/reading-comprehension.html" class="mt-auto w-full btn-red-play py-3.5 rounded-2xl font-bold block">Play Game</a>
+      </div>
+
+      <div class="screenshot-card p-8 flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-2xl bg-[#ecfdf5] text-[#10b981] flex items-center justify-center text-3xl mb-6">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+        <h3 class="text-xl font-extrabold text-[#1e293b] mb-3">Sentence Unjumble</h3>
+        <p class="text-sm font-medium text-slate-500 mb-8 leading-relaxed">Rearrange words to form correct sentences. Great for grammar.</p>
+        <a href="games/unjumble.html" class="mt-auto w-full btn-red-play py-3.5 rounded-2xl font-bold block">Play Game</a>
+      </div>
+
+      <div class="screenshot-card p-8 flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-2xl bg-[#fefce8] text-[#eab308] flex items-center justify-center text-3xl mb-6">
+          <i class="fa-solid fa-clone"></i>
+        </div>
+        <h3 class="text-xl font-extrabold text-[#1e293b] mb-3">Vocabulary Flashcards</h3>
+        <p class="text-sm font-medium text-slate-500 mb-8 leading-relaxed">Flip through cards to memorize vocabulary and definitions.</p>
+        <a href="games/flashcards.html" class="mt-auto w-full btn-red-play py-3.5 rounded-2xl font-bold block">Play Game</a>
+      </div>
+
+      <div class="screenshot-card p-8 flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-2xl bg-[#fef2f2] text-[#ef4444] flex items-center justify-center text-3xl mb-6">
+          <i class="fa-solid fa-dice"></i>
+        </div>
+        <h3 class="text-xl font-extrabold text-[#1e293b] mb-3">Word Matching</h3>
+        <p class="text-sm font-medium text-slate-500 mb-8 leading-relaxed">Match English words with their correct Chinese translations.</p>
+        <a href="games/word-matching.html" class="mt-auto w-full btn-red-play py-3.5 rounded-2xl font-bold block">Play Game</a>
+      </div>
+
+      <div class="screenshot-card p-8 flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-2xl bg-[#faf5ff] text-[#a855f7] flex items-center justify-center text-3xl mb-6">
+          <i class="fa-solid fa-user-astronaut"></i>
+        </div>
+        <h3 class="text-xl font-extrabold text-[#1e293b] mb-3">Classic Hangman</h3>
+        <p class="text-sm font-medium text-slate-500 mb-8 leading-relaxed">Guess the hidden vocabulary words letter by letter to save the character.</p>
+        <a href="games/hangman.html" class="mt-auto w-full btn-red-play py-3.5 rounded-2xl font-bold block">Play Game</a>
+      </div>
+
+      <div class="screenshot-card p-8 flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-2xl bg-[#f0fdfa] text-[#14b8a6] flex items-center justify-center text-3xl mb-6">
+          <i class="fa-solid fa-image"></i>
+        </div>
+        <h3 class="text-xl font-extrabold text-[#1e293b] mb-3">Guess the Picture</h3>
+        <p class="text-sm font-medium text-slate-500 mb-8 leading-relaxed">Look closely at the image and guess the correct English vocabulary word.</p>
+        <a href="games/guess-picture.html" class="mt-auto w-full btn-red-play py-3.5 rounded-2xl font-bold block">Play Game</a>
+      </div>
+
+      <div class="screenshot-card p-8 flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-2xl bg-[#eef2ff] text-[#6366f1] flex items-center justify-center text-3xl mb-6">
+          <i class="fa-solid fa-border-all"></i>
+        </div>
+        <h3 class="text-xl font-extrabold text-[#1e293b] mb-3">Memory Pairs</h3>
+        <p class="text-sm font-medium text-slate-500 mb-8 leading-relaxed">Test your memory by finding matching pairs of words and images.</p>
+        <a href="games/memory.html" class="mt-auto w-full btn-red-play py-3.5 rounded-2xl font-bold block">Play Game</a>
+      </div>
+
+      <div class="screenshot-card p-8 flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-2xl bg-[#fff7ed] text-[#f97316] flex items-center justify-center text-3xl mb-6">
+          <i class="fa-solid fa-stopwatch"></i>
+        </div>
+        <h3 class="text-xl font-extrabold text-[#1e293b] mb-3">Timed Challenge</h3>
+        <p class="text-sm font-medium text-slate-500 mb-8 leading-relaxed">Race against the clock to answer vocabulary and grammar questions.</p>
+        <a href="games/timed-challenge.html" class="mt-auto w-full btn-red-play py-3.5 rounded-2xl font-bold block">Play Game</a>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>
