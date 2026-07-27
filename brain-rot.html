@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Age of Brain Rot | LearnESL</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Vocabulary Highlights */
+    .vocab-highlight { cursor: pointer; text-decoration: underline; text-decoration-style: wavy; text-decoration-color: #6174e1; font-weight: 800; color: #1a202c; transition: color 0.2s; }
+    .vocab-highlight:hover { color: #6174e1; }
+
+    /* Flashcard 3D Flip Animation CSS */
+    .flashcard {
+      perspective: 1000px;
+      background-color: transparent;
+    }
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flashcard.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden; 
+      backface-visibility: hidden;
+      border-radius: 1rem;
+    }
+    .flashcard-back {
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen bg-[#f8fafc]">
+
+  <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="../index.html" class="flex items-center gap-3">
+        <div class="bg-[#ff7b5a] text-white p-2.5 rounded-xl shadow-sm">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-extrabold text-slate-800 tracking-tight">LearnESL</h1>
+          <p class="text-[9px] font-bold text-slate-400 tracking-widest uppercase">Semester 1 • Fall 2026</p>
+        </div>
+      </a>
+      <div class="hidden md:flex gap-2 text-sm font-bold text-slate-500">
+        <a href="../index.html" class="px-5 py-2.5 hover:bg-slate-50 rounded-full flex items-center gap-2 transition"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="../dictionary/dictionary.html" class="px-5 py-2.5 hover:bg-slate-50 rounded-full flex items-center gap-2 transition"><i class="fa-solid fa-book"></i> Dictionary</a>
+        <a href="../categories.html" class="px-5 py-2.5 hover:bg-slate-50 rounded-full flex items-center gap-2 transition"><i class="fa-solid fa-layer-group"></i> Categories</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="flex-grow max-w-5xl mx-auto w-full px-6 py-8">
+    
+    <div class="bg-[#6174e1] rounded-[40px] p-10 md:p-12 text-white relative overflow-hidden mb-8 shadow-lg">
+      <i class="fa-solid fa-mobile-screen hero-pattern" style="font-size: 300px; top: -10%; right: 0; position: absolute; opacity: 0.1;"></i>
+      <div class="relative z-10">
+        <div class="bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-2 mb-6 uppercase tracking-wider">
+          Pop Culture & Entertainment
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tight">The Age of Brain Rot</h1>
+        <div class="flex flex-wrap gap-4 text-sm font-bold text-blue-100 opacity-90">
+          <span><i class="fa-regular fa-clock mr-1"></i> 15 Min Read</span>
+          <span id="vocab-count-badge"><i class="fa-solid fa-spell-check mr-1"></i> 10 Vocab Words</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center mb-8">
+      <div class="bg-white p-1.5 rounded-full shadow-sm border border-gray-200 inline-flex">
+        <button onclick="switchLevel('basic')" id="tab-basic" class="px-8 py-3 rounded-full font-black text-sm tracking-wide transition-all bg-[#e0f2fe] text-[#0284c7] shadow-sm">Basic Level</button>
+        <button onclick="switchLevel('intermediate')" id="tab-intermediate" class="px-8 py-3 rounded-full font-bold text-sm tracking-wide text-slate-500 hover:text-slate-800 transition-all">Intermediate Level</button>
+      </div>
+    </div>
+
+    <section class="ui-card p-8 md:p-12 mb-10 text-lg leading-relaxed text-slate-700 font-medium bg-white rounded-3xl shadow-sm border border-slate-100">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-6 mb-6">
+        <h2 class="text-2xl font-black text-slate-800"><i class="fa-solid fa-book-open-reader text-[#ff7b5a] mr-3"></i>Reading Material</h2>
+        <button class="bg-slate-100 hover:bg-slate-200 text-slate-600 w-10 h-10 rounded-full flex items-center justify-center transition" aria-label="Read Aloud"><i class="fa-solid fa-volume-high"></i></button>
+      </div>
+
+      <article id="content-basic">
+        
+        <div id="basic-page-1" class="space-y-6">
+          <div>
+            <h3 class="text-xl font-black text-slate-800 mb-2">A New Kind of Internet Culture</h3>
+            <p>In late 2024, the Oxford University Press named a strange, two-word phrase as its <strong>Word of the Year</strong>: <strong>"Brain rot"</strong>. By the time we reached 2026, the term had become a <span class="vocab-highlight" onclick="showLocalVocab('permanent')">permanent</span> part of the global vocabulary, used by everyone from middle school students in Taiwan to university professors in London. But what exactly is brain rot? To some, it is just a funny way to <span class="vocab-highlight" onclick="showLocalVocab('describe')">describe</span> <span class="vocab-highlight" onclick="showLocalVocab('silly')">silly</span> videos. To others, it is a serious warning about how we use our phones and how technology might be changing our minds.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-black text-slate-800 mb-2">What is Brain Rot?</h3>
+            <p>"Brain rot" (often written as one word: <em>brainrot</em>) is a slang term used to describe the feeling of being "mentally tired" or "foggy" after spending too much time online. It specifically refers to the consumption of low-quality, <span class="vocab-highlight" onclick="showLocalVocab('repetitive')">repetitive</span>, and <span class="vocab-highlight" onclick="showLocalVocab('absurd')">absurd</span> content.</p>
+            <p class="mt-4">For the younger generations, known as Generation Z and Generation Alpha, brain rot is also a specific style of internet <span class="vocab-highlight" onclick="showLocalVocab('humor')">humor</span>. This style is often chaotic, fast-paced, and filled with strange words that make no sense to older people. Famous examples include the "Skibidi Toilet" series, the "Only in Ohio" memes, and terms like "Rizz" (meaning <span class="vocab-highlight" onclick="showLocalVocab('charisma')">charisma</span>) or "Gyatt". While these videos are often watched for entertainment, the term "brain rot" <span class="vocab-highlight" onclick="showLocalVocab('ironically')">ironically</span> suggests that watching them is so useless that it feels like your brain is actually <span class="vocab-highlight" onclick="showLocalVocab('rot')">rot</span>ting away.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-black text-slate-800 mb-2">The History: From a Cabin to a Smartphone</h3>
+            <p>Most people think "brain rot" is a <span class="vocab-highlight" onclick="showLocalVocab('modern')">modern</span> invention of the TikTok era, but the term is actually over 170 years old. The first recorded use of the phrase was in 1854 by the American writer Henry David Thoreau in his famous book, <em>Walden</em>. Thoreau lived in a small cabin in the woods to find a simpler life, and he worried that society was becoming too focused on simple, trivial ideas. He asked if anyone would try to "cure the brain-rot" that he saw spreading through the minds of people who didn't think deeply.</p>
+            <p class="mt-4">The term reappeared on Twitter in 2007 to describe reality TV shows and video games. However, it didn't truly explode in popularity until the COVID-19 lockdowns of 2020. With the world stuck at home, millions of people began "doomscrolling"—endlessly scrolling through negative or mindless news and videos. Between 2023 and 2024, the use of the term increased by 230%, leading to its crowning as the Word of the Year.</p>
+          </div>
+          <div class="pt-6 border-t border-slate-100 flex justify-end mt-8">
+            <button onclick="changeReadingPage('basic', 2)" class="bg-[#e0f2fe] text-[#0284c7] hover:bg-[#bae6fd] px-6 py-2.5 rounded-full font-bold shadow-sm transition flex items-center gap-2">Next Page <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <div id="basic-page-2" class="space-y-6 hidden">
+          <div>
+            <h3 class="text-xl font-black text-slate-800 mb-2">Why Did It Become So Famous?</h3>
+            <p>Brain rot content became a global phenomenon because of three main factors: <strong>technology, social bonding, and the "Fear of Missing Out" (FOMO)</strong>.</p>
+            <ul class="list-disc pl-6 space-y-3 mt-4">
+              <li><strong>The Algorithm and the Infinite Scroll:</strong> Apps like TikTok and Instagram use "infinite scrolling," which means the content never ends. The computer programs (algorithms) are designed to learn exactly what you like and keep showing you more of it, making it very difficult to put the phone down.</li>
+              <li><strong>Dopamine Hits:</strong> Every time you see a new, funny video, your brain releases a small chemical called <strong>dopamine</strong>. This is the brain's "reward" chemical. Short-form videos provide these rewards every 15 to 30 seconds, creating an addictive loop where your brain constantly craves the next video.</li>
+              <li><strong>Social Connection:</strong> For many young people, using "brain rot" slang is a way to feel included in a group. If you don't know what "Skibidi" or "Fanum Tax" means, you might feel left out of the conversation. This "FOMO" drives people to stay online for hours to stay updated on the latest weird trends.</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-black text-slate-800 mb-2 mt-6">The Potential Damages to the Brain</h3>
+            <p>While "brain rot" is often used as a joke, doctors and scientists are concerned about the <strong>real cognitive effects</strong> of overexposure to this content.</p>
+            <ul class="list-disc pl-6 space-y-3 mt-4">
+              <li><strong>Attention Span Decline:</strong> Constant exposure to fast-switching videos trains the brain to expect information in tiny, rapid bursts. This is sometimes called <strong>"TikTok Brain"</strong> or <strong>"Popcorn Brain."</strong> It makes it much harder to focus on "slow" tasks like reading a book, studying for a test, or sitting through a long lecture.</li>
+              <li><strong>Weakening the Prefrontal Cortex:</strong> This is the part of the brain responsible for <strong>decision-making, planning, and impulse control</strong>. Research suggests that constant digital overstimulation can weaken this area, making it harder for people (especially children) to control their urges or plan for the future.</li>
+              <li><strong>Dopamine Desensitization:</strong> When the brain is flooded with dopamine from screens all day, the brain's receptors become less sensitive. This means you need more and more stimulation just to feel "normal." Activities that used to be fun, like walking in nature or talking with friends, might start to feel boring in comparison.</li>
+              <li><strong>Mental Fatigue and Fog:</strong> Many students report feeling "drained" or "foggy" after hours of scrolling. This mental fatigue can lead to lower grades, irritability when away from the phone, and even a higher risk of anxiety or depression.</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-black text-slate-800 mb-2 mt-6">Is the Damage Permanent?</h3>
+            <p>The good news is that the human brain is very adaptable, which is a concept known as <strong>neuroplasticity</strong>. This means the effects of "brain rot" are likely not permanent. By setting time limits, choosing "long-form" content like books or podcasts, and taking breaks to interact with the real world, the brain can "re-train" itself to focus and find joy in slower, more meaningful activities.</p>
+          </div>
+          <div class="pt-6 border-t border-slate-100 flex justify-start mt-8">
+            <button onclick="changeReadingPage('basic', 1)" class="bg-slate-100 text-slate-600 hover:bg-slate-200 px-6 py-2.5 rounded-full font-bold shadow-sm transition flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Previous Page</button>
+          </div>
+        </div>
+      </article>
+
+      <article id="content-intermediate" class="hidden">
+        
+        <div id="int-page-1" class="space-y-6">
+          <div>
+            <h3 class="text-xl font-black text-slate-800 mb-2">A New Kind of Internet Culture</h3>
+            <p>In late 2024, the famous Oxford University Press chose a very strange, two-word phrase as its official "Word of the Year": <strong>"Brain rot"</strong>. By the year 2026, this term had completely <span class="vocab-highlight" onclick="showLocalVocab('evolved')">evolved</span> from an obscure internet joke into a permanent part of our global vocabulary. Today, it is used by almost everyone, from middle school students navigating social media in Taiwan to university professors analyzing language changes in London.</p>
+            <p class="mt-4">But what exactly is brain rot? To some people, it is just a funny, casual way to describe the silly, <span class="vocab-highlight" onclick="showLocalVocab('chaotic')">chaotic</span>, and crazy videos we see on our feeds. To other people, it serves as a <span class="vocab-highlight" onclick="showLocalVocab('serious')">serious</span>, <span class="vocab-highlight" onclick="showLocalVocab('urgent')">urgent</span> warning about how we use our smartphones every single day. It forces us to ask deep questions about how modern technology might be changing our minds, our habits, and how we think about the world around us.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-black text-slate-800 mb-2">What is Brain Rot?</h3>
+            <p>At its core, <strong>"brain rot"</strong> is a slang term. People use it to describe that very specific feeling of being "mentally tired," exhausted, or "foggy" after spending far too much time scrolling on the internet. It does not just mean using a computer for homework; it specifically refers to watching low-quality, highly repetitive, and completely <span class="vocab-highlight" onclick="showLocalVocab('absurd')">absurd</span> digital content for hours at a time.</p>
+            <p class="mt-4">For younger generations, such as Generation Z and Generation Alpha, brain rot has also become a unique style of internet humor. This style of content is fast-paced, loud, and filled with strange words. In fact, these phrases usually make absolutely no sense to older people like parents or teachers. Some of the most famous examples that dominate the internet include: <strong>The "Skibidi Toilet" series:</strong> A <span class="vocab-highlight" onclick="showLocalVocab('surreal')">surreal</span>, chaotic video series about toilets with human heads that became a massive global trend among kids. <strong>The "Only in Ohio" memes:</strong> A long-running joke used to describe <span class="vocab-highlight" onclick="showLocalVocab('bizarre')">bizarre</span>, impossible, or completely wild situations as if they only happen in one specific place. <strong>Slang terms like "Rizz" or "Gyatt":</strong> Brand-new vocabulary words where "Rizz" means having charisma or charm, and "Gyatt" is used as an exclamation of surprise.</p>
+            <p class="mt-4">While teenagers and kids watch these short clips for fun and entertainment, the term "brain rot" ironically suggests that watching them is totally useless. It feels like your brain is actually rotting away while you sit and watch them.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-black text-slate-800 mb-2">Why Did It Become So Famous?</h3>
+            <p>Brain rot content became a massive global phenomenon because of three main reasons: <strong>technology, social bonding, and FOMO</strong>.</p>
+            <ul class="list-disc pl-6 space-y-3 mt-4">
+              <li><strong>1. The Algorithm and the Infinite Scroll:</strong> Apps like TikTok and Instagram use <strong>"infinite scrolling,"</strong> meaning the videos automatically play and the page never ends. The computer programs behind these apps, called <strong>algorithms</strong>, watch your behavior to learn exactly what you like. By instantly showing you more of your favorite topics, they create a customized feed that makes it incredibly difficult to put your phone down.</li>
+              <li><strong>2. Dopamine Hits:</strong> Every time you see a funny or surprising video, your brain releases a tiny amount of a "reward" chemical called <strong>dopamine</strong>, making you feel happy for a brief moment. Short-form videos are powerful because they deliver these chemical rewards every 15 to 30 seconds. This quickly creates an addictive loop where your brain constantly craves the next quick laugh, keeping you trapped on the app.</li>
+              <li><strong>3. Social Connection and FOMO:</strong> For many students, using "brain rot" slang is a way to feel included. Inside school hallways and group chats, these memes form a shared language. If you don't know what words like "Skibidi" or "Fanum Tax" mean, you might feel left out. This powerful feeling is called <strong>"FOMO" (Fear of Missing Out)</strong>, and it forces people to stay online for hours just to keep up with the latest trends.</li>
+            </ul>
+          </div>
+          <div class="pt-6 border-t border-slate-100 flex justify-end mt-8">
+            <button onclick="changeReadingPage('intermediate', 2)" class="bg-[#e0f2fe] text-[#0284c7] hover:bg-[#bae6fd] px-6 py-2.5 rounded-full font-bold shadow-sm transition flex items-center gap-2">Next Page <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <div id="int-page-2" class="space-y-6 hidden">
+          <div>
+            <h3 class="text-xl font-black text-slate-800 mb-2">The Potential Damages to the Brain</h3>
+            <p>Although most people use the word "brain rot" as a harmless joke, doctors, psychologists, and scientists are very worried about the real <span class="vocab-highlight" onclick="showLocalVocab('cognitive')">cognitive</span> effects it has on our health.</p>
+            <ul class="list-disc pl-6 space-y-4 mt-4">
+              <li><strong>Attention Span Decline:</strong> Watching fast, chaotic videos trains the brain to expect information in tiny, rapid bursts, a problem often called "TikTok Brain" or "Popcorn Brain." Because the brain gets used to constant excitement, students find it much harder to focus on "slow" everyday tasks like reading a textbook, studying for an exam, or sitting through a long school lecture.</li>
+              <li><strong>Weakening the Prefrontal Cortex:</strong> The prefrontal cortex is the front part of the brain responsible for decision-making, planning, and <span class="vocab-highlight" onclick="showLocalVocab('impulse')">impulse</span> control. Research suggests that constant digital overstimulation can weaken this critical area. When this happens, it becomes much harder for children and teenagers to control their actions, resist <span class="vocab-highlight" onclick="showLocalVocab('distractions')">distractions</span>, or stay organized.</li>
+              <li><strong>Dopamine Desensitization:</strong> When bright screens flood the brain with dopamine all day, the brain's natural receptors become less sensitive. Because your brain gets used to this high stimulation, you need more and more screen time just to feel normal. As a result, fun real-world activities like walking in nature, playing sports, or talking with friends face-to-face start to feel incredibly boring.</li>
+              <li><strong>Mental <span class="vocab-highlight" onclick="showLocalVocab('fatigue')">Fatigue</span> and Fog:</strong> Many students report feeling completely "drained," exhausted, or "foggy" after scrolling through social media for hours. This deep <strong>mental fatigue</strong> can cause lower school grades because the brain cannot retain information. It also leads to bad moods and irritability when you are forced to step away from your phone, and it can even create a much higher risk of long-term anxiety or depression.</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-black text-slate-800 mb-2 mt-6">Is the Damage Permanent?</h3>
+            <p>Thankfully, the good news is that the human brain is incredibly flexible, powerful, and adaptable. This amazing scientific concept is known as <strong>neuroplasticity</strong>.</p>
+            <p class="mt-4">Neuroplasticity means that the negative side effects of "brain rot" are not permanent. Your brain has the ability to heal, change, and grow stronger over time. By setting daily time limits on your apps, choosing "long-form" content like reading physical books or listening to educational podcasts, and spending more time interacting with the real world, the brain can slowly "re-train" itself. With patience and better habits, you can teach your mind to focus deeply once again and find true, lasting joy in slower, more meaningful activities.</p>
+          </div>
+          <div class="pt-6 border-t border-slate-100 flex justify-start mt-8">
+            <button onclick="changeReadingPage('intermediate', 1)" class="bg-slate-100 text-slate-600 hover:bg-slate-200 px-6 py-2.5 rounded-full font-bold shadow-sm transition flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Previous Page</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+      
+      <section class="ui-card p-8 flex flex-col bg-white rounded-3xl shadow-sm border border-slate-100">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl"><i class="fa-solid fa-list-check"></i></div>
+          <h3 class="text-2xl font-black text-slate-800">Reading Quiz</h3>
+        </div>
+
+        <div id="quiz-basic" class="space-y-6">
+          <div class="quiz-q">
+            <p class="font-bold text-slate-700 mb-3">1. Which of the following best describes the historical origin of the term "brain rot"?</p>
+            <div class="flex flex-col gap-2">
+              <button class="w-full text-left px-4 py-3 rounded-xl border border-slate-200 font-medium text-slate-600 hover:bg-slate-50 transition" onclick="checkLocalAnswer(this, false)">A) Invented by TikTok in 2024</button>
+              <button class="w-full text-left px-4 py-3 rounded-xl border border-slate-200 font-medium text-slate-600 hover:bg-slate-50 transition" onclick="checkLocalAnswer(this, true)">B) Used by a writer in 1854</button>
+              <button class="w-full text-left px-4 py-3 rounded-xl border border-slate-200 font-medium text-slate-600 hover:bg-slate-50 transition" onclick="checkLocalAnswer(this, false)">C) It was a medical term used by doctors</button>
+            </div>
+          </div>
+          <div class="quiz-q">
+            <p class="font-bold text-slate-700 mb-3">2. How does "brain rot" content function as a social tool for teenagers?</p>
+            <textarea class="w-full bg-slate-50 border border-slate-200 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium text-slate-700" rows="2" placeholder="Type your answer..."></textarea>
+            <button class="mt-2 text-sm font-bold text-blue-600 hover:text-blue-800" onclick="alert('Suggested Answer: Teenagers use it to bond and feel included. Using slang like \'Rizz\' helps them avoid FOMO (Fear Of Missing Out).')">Show Answer</button>
+          </div>
+        </div>
+
+        <div id="quiz-intermediate" class="space-y-6 hidden">
+          <div class="quiz-q">
+            <p class="font-bold text-slate-700 mb-3">1. Which organization chose "Brain rot" as Word of the Year?</p>
+            <div class="flex flex-col gap-2">
+              <button class="w-full text-left px-4 py-3 rounded-xl border border-slate-200 font-medium text-slate-600 hover:bg-slate-50 transition" onclick="checkLocalAnswer(this, true)">A) Oxford University Press</button>
+              <button class="w-full text-left px-4 py-3 rounded-xl border border-slate-200 font-medium text-slate-600 hover:bg-slate-50 transition" onclick="checkLocalAnswer(this, false)">B) The Global Vocabulary Council</button>
+            </div>
+          </div>
+          <div class="quiz-q">
+            <p class="font-bold text-slate-700 mb-3">2. Based on the reading, what is the main difference between using a computer for homework and true "brain rot"?</p>
+            <textarea class="w-full bg-slate-50 border border-slate-200 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium text-slate-700" rows="3" placeholder="Type your answer..."></textarea>
+            <button class="mt-2 text-sm font-bold text-blue-600 hover:text-blue-800" onclick="alert('Suggested Answer: Using a computer for homework is a productive task, whereas brain rot refers to spending hours watching low-quality, highly repetitive, and absurd digital content.')">Show Answer</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="ui-card p-8 flex flex-col relative overflow-hidden bg-white rounded-3xl shadow-sm border border-slate-100">
+        <div class="flex justify-between items-start mb-6">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-green-50 text-green-600 flex items-center justify-center text-xl"><i class="fa-solid fa-layer-group"></i></div>
+            <h3 class="text-2xl font-black text-slate-800">Sentence Unjumble</h3>
+          </div>
+          <span id="unjumble-tracker" class="bg-slate-100 text-slate-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">1 / 10</span>
+        </div>
+        
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Rearrange the words</p>
+        
+        <div id="unjumble-dropzone" class="min-h-[90px] bg-green-50/50 border-2 border-dashed border-green-400 rounded-2xl mb-6 p-4 flex flex-wrap gap-2 items-center content-start transition-colors shadow-inner"></div>
+        
+        <div id="unjumble-words" class="flex flex-wrap gap-2 mb-6"></div>
+        
+        <div class="mt-auto flex justify-between items-center pt-4 border-t border-slate-100 relative">
+          <button onclick="resetUnjumble()" class="text-slate-400 hover:text-slate-700 font-bold text-sm transition"><i class="fa-solid fa-rotate-right mr-1"></i> Reset</button>
+          
+          <div class="flex gap-2">
+            <button id="unjumble-next-btn" onclick="nextUnjumbleSentence()" class="hidden bg-[#e0f2fe] text-[#0284c7] hover:bg-[#bae6fd] px-6 py-2.5 rounded-full font-bold shadow-sm transition">Next <i class="fa-solid fa-arrow-right ml-1"></i></button>
+            <button id="unjumble-check-btn" onclick="checkUnjumble()" class="bg-[#2d3748] text-white hover:bg-slate-800 px-6 py-2.5 rounded-full font-bold shadow-md transition">Check</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <section class="ui-card p-10 mb-10 bg-[#354153] shadow-xl border-none rounded-3xl">
+      <div class="flex items-center justify-between mb-8 border-b border-slate-600/50 pb-6">
+        <h3 class="text-2xl font-black text-white flex items-center"><i class="fa-solid fa-clone text-[#ff7b5a] mr-3"></i>Vocabulary Flashcards</h3>
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest" id="flashcard-mode-text">Basic Words</p>
+      </div>
+      
+      <div id="flashcard-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5">
+        </div>
+    </section>
+
+  </main>
+
+  <div id="vocab-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden justify-center items-center z-50 transition-opacity">
+    <div class="ui-card p-8 max-w-sm w-full mx-4 relative shadow-2xl bg-white rounded-3xl">
+      <button onclick="closeVocab()" class="absolute top-4 right-4 w-8 h-8 bg-slate-100 text-slate-500 rounded-full hover:bg-slate-200 transition flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <img id="vocab-img" src="" class="w-full h-40 object-cover rounded-2xl mb-5 shadow-sm">
+      <h3 id="vocab-word" class="text-3xl font-black capitalize text-slate-800 mb-1"></h3>
+      <div class="flex items-center gap-2 mb-4">
+        <button class="text-blue-500 hover:text-blue-700 transition"><i class="fa-solid fa-volume-high"></i></button>
+        <span id="vocab-pronunciation" class="text-xs font-bold text-slate-400 uppercase tracking-widest"></span>
+      </div>
+      <p id="vocab-translation" class="text-2xl font-bold text-[#6174e1] mb-4"></p>
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 italic text-slate-600 font-medium shadow-inner">
+        "<span id="vocab-example"></span>"
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. DICTIONARY-STYLE LOCAL VOCAB DATA
+    // ==========================================
+    const localVocab = {
+      basic: {
+        "absurd": { word: "absurd", translation: "荒謬的", pos: "adjective", pronunciation: "/əbˈsɝːd/", example: "The video about dancing toilets was completely absurd.", img: "https://images.unsplash.com/photo-1492681290082-e9328336bb18?w=300", lessons: ["The Age of Brain Rot"] },
+        "describe": { word: "describe", translation: "描述", pos: "verb", pronunciation: "/dɪˈskraɪb/", example: "It is a funny way to describe silly videos.", img: "https://images.unsplash.com/photo-1455390582262-044cdead27d8?w=300", lessons: ["The Age of Brain Rot"] },
+        "permanent": { word: "permanent", translation: "永久的", pos: "adjective", pronunciation: "/ˈpɝː.mə.nənt/", example: "The term became a permanent part of our global vocabulary.", img: "https://images.unsplash.com/photo-1516131206008-5f9fa3a95d73?w=300", lessons: ["The Age of Brain Rot"] },
+        "rot": { word: "rot", translation: "腐爛", pos: "verb", pronunciation: "/rɑːt/", example: "It feels like your brain is actually starting to rot.", img: "https://images.unsplash.com/photo-1596704153926-407dc8b8a514?w=300", lessons: ["The Age of Brain Rot"] },
+        "silly": { word: "silly", translation: "愚蠢的/滑稽的", pos: "adjective", pronunciation: "/ˈsɪl.i/", example: "He loves watching silly videos online.", img: "https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?w=300", lessons: ["The Age of Brain Rot"] },
+        "repetitive": { word: "repetitive", translation: "重複的", pos: "adjective", pronunciation: "/rɪˈpet̬.ə.t̬ɪv/", example: "The app shows low-quality, repetitive content.", img: "https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=300", lessons: ["The Age of Brain Rot"] },
+        "humor": { word: "humor", translation: "幽默", pos: "noun", pronunciation: "/ˈhjuː.mɚ/", example: "Brain rot is a specific style of internet humor.", img: "https://images.unsplash.com/photo-1543165796-5426273eaab3?w=300", lessons: ["The Age of Brain Rot"] },
+        "charisma": { word: "charisma", translation: "魅力", pos: "noun", pronunciation: "/kəˈrɪz.mə/", example: "The slang word 'Rizz' means having charisma.", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300", lessons: ["The Age of Brain Rot"] },
+        "ironically": { word: "ironically", translation: "諷刺地", pos: "adverb", pronunciation: "/aɪˈrɑː.nɪ.kəl.i/", example: "Ironically, watching them feels useless.", img: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=300", lessons: ["The Age of Brain Rot"] },
+        "modern": { word: "modern", translation: "現代的", pos: "adjective", pronunciation: "/ˈmɑː.dɚn/", example: "It is not just a modern invention.", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=300", lessons: ["The Age of Brain Rot"] }
+      },
+      intermediate: {
+        "evolved": { word: "evolved", translation: "演變", pos: "verb", pronunciation: "/ɪˈvɑːlvd/", example: "The term evolved from a joke into global vocabulary.", img: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300", lessons: ["The Age of Brain Rot"] },
+        "chaotic": { word: "chaotic", translation: "混亂的", pos: "adjective", pronunciation: "/keɪˈɑː.t̬ɪk/", example: "People watch silly and chaotic videos on their feeds.", img: "https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?w=300", lessons: ["The Age of Brain Rot"] },
+        "serious": { word: "serious", translation: "嚴肅的", pos: "adjective", pronunciation: "/ˈsɪr.i.əs/", example: "It serves as a serious warning.", img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=300", lessons: ["The Age of Brain Rot"] },
+        "urgent": { word: "urgent", translation: "緊急的", pos: "adjective", pronunciation: "/ˈɝː.dʒənt/", example: "We need an urgent solution to phone addiction.", img: "https://images.unsplash.com/photo-1560205001-a128148b594b?w=300", lessons: ["The Age of Brain Rot"] },
+        "absurd": { word: "absurd", translation: "荒謬的", pos: "adjective", pronunciation: "/əbˈsɝːd/", example: "The video about dancing toilets was completely absurd.", img: "https://images.unsplash.com/photo-1492681290082-e9328336bb18?w=300", lessons: ["The Age of Brain Rot"] },
+        "surreal": { word: "surreal", translation: "超現實的", pos: "adjective", pronunciation: "/səˈriː.əl/", example: "They watched a surreal video series about toilets.", img: "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?w=300", lessons: ["The Age of Brain Rot"] },
+        "bizarre": { word: "bizarre", translation: "奇異的", pos: "adjective", pronunciation: "/bəˈzɑːr/", example: "He laughed at the bizarre memes.", img: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=300", lessons: ["The Age of Brain Rot"] },
+        "cognitive": { word: "cognitive", translation: "認知的", pos: "adjective", pronunciation: "/ˈkɑːɡ.nə.t̬ɪv/", example: "Doctors worry about the real cognitive effects.", img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=300", lessons: ["The Age of Brain Rot"] },
+        "impulse": { word: "impulse", translation: "衝動", pos: "noun", pronunciation: "/ˈɪm.pʌls/", example: "The prefrontal cortex controls your impulse.", img: "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=300", lessons: ["The Age of Brain Rot"] },
+        "distractions": { word: "distractions", translation: "分心事物", pos: "noun", pronunciation: "/dɪˈstræk.ʃənz/", example: "It is hard for teenagers to resist distractions.", img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=300", lessons: ["The Age of Brain Rot"] },
+        "fatigue": { word: "fatigue", translation: "疲勞", pos: "noun", pronunciation: "/fəˈtiːɡ/", example: "Deep mental fatigue can cause lower school grades.", img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=300", lessons: ["The Age of Brain Rot"] }
+      }
+    };
+
+    let currentLevel = 'basic';
+
+    // ==========================================
+    // 2. TAB & PAGINATION LOGIC
+    // ==========================================
+    function switchLevel(level) {
+      currentLevel = level;
+      const tabBasic = document.getElementById('tab-basic');
+      const tabInt = document.getElementById('tab-intermediate');
+      const contentBasic = document.getElementById('content-basic');
+      const contentInt = document.getElementById('content-intermediate');
+      const quizBasic = document.getElementById('quiz-basic');
+      const quizInt = document.getElementById('quiz-intermediate');
+      const vocabCount = document.getElementById('vocab-count-badge');
+
+      if(level === 'basic') {
+        tabBasic.className = "px-8 py-3 rounded-full font-black text-sm tracking-wide transition-all bg-[#e0f2fe] text-[#0284c7] shadow-sm";
+        tabInt.className = "px-8 py-3 rounded-full font-bold text-sm tracking-wide text-slate-500 hover:text-slate-800 transition-all";
+        contentBasic.classList.remove('hidden'); contentInt.classList.add('hidden');
+        quizBasic.classList.remove('hidden'); quizInt.classList.add('hidden');
+        vocabCount.innerHTML = `<i class="fa-solid fa-spell-check mr-1"></i> 10 Vocab Words`;
+        document.getElementById('flashcard-mode-text').innerText = "Basic Words";
+        changeReadingPage('basic', 1);
+      } else {
+        tabInt.className = "px-8 py-3 rounded-full font-black text-sm tracking-wide transition-all bg-[#e0f2fe] text-[#0284c7] shadow-sm";
+        tabBasic.className = "px-8 py-3 rounded-full font-bold text-sm tracking-wide text-slate-500 hover:text-slate-800 transition-all";
+        contentInt.classList.remove('hidden'); contentBasic.classList.add('hidden');
+        quizInt.classList.remove('hidden'); quizBasic.classList.add('hidden');
+        vocabCount.innerHTML = `<i class="fa-solid fa-spell-check mr-1"></i> 11 Vocab Words`;
+        document.getElementById('flashcard-mode-text').innerText = "Intermediate Words";
+        changeReadingPage('intermediate', 1);
+      }
+
+      currentSentenceIndex = 0; 
+      initUnjumble();
+      renderFlashcards();
+    }
+
+    function changeReadingPage(level, pageNum) {
+      if(level === 'basic') {
+        document.getElementById('basic-page-1').classList.toggle('hidden', pageNum !== 1);
+        document.getElementById('basic-page-2').classList.toggle('hidden', pageNum !== 2);
+      } else {
+        document.getElementById('int-page-1').classList.toggle('hidden', pageNum !== 1);
+        document.getElementById('int-page-2').classList.toggle('hidden', pageNum !== 2);
+      }
+      // Smooth scroll back to top of the content area
+      const offsetTarget = level === 'basic' ? document.getElementById('content-basic') : document.getElementById('content-intermediate');
+      window.scrollTo({ top: offsetTarget.offsetTop - 120, behavior: 'smooth' });
+    }
+
+    // ==========================================
+    // 3. VOCAB MODAL ENGINE
+    // ==========================================
+    function showLocalVocab(word) {
+      const data = localVocab[currentLevel][word];
+      if(!data) return;
+      document.getElementById('vocab-img').src = data.img;
+      document.getElementById('vocab-word').innerText = data.word;
+      document.getElementById('vocab-translation').innerText = data.translation;
+      document.getElementById('vocab-pronunciation').innerText = `${data.pronunciation} • ${data.pos}`;
+      document.getElementById('vocab-example').innerText = data.example;
+      
+      const modal = document.getElementById('vocab-modal');
+      modal.classList.remove('hidden'); modal.classList.add('flex');
+    }
+
+    function closeVocab() {
+      const modal = document.getElementById('vocab-modal');
+      modal.classList.add('hidden'); modal.classList.remove('flex');
+    }
+
+    // ==========================================
+    // 4. FLASHCARDS ENGINE
+    // ==========================================
+    function renderFlashcards() {
+      const container = document.getElementById('flashcard-container');
+      container.innerHTML = '';
+      const words = localVocab[currentLevel];
+
+      Object.values(words).forEach(v => {
+        const card = document.createElement('div');
+        // Added onclick to toggle the 'flipped' class directly
+        card.className = "flashcard h-32 cursor-pointer";
+        card.setAttribute("onclick", "this.classList.toggle('flipped')");
+        
+        card.innerHTML = `
+          <div class="flashcard-inner">
+            <div class="flashcard-front bg-white flex items-center justify-center shadow-sm border border-slate-200">
+              <h4 class="font-black text-slate-800 text-lg capitalize">${v.word}</h4>
+            </div>
+            <div class="flashcard-back bg-[#6174e1] text-white flex flex-col items-center justify-center shadow-md px-2 text-center">
+              <span class="font-bold text-2xl">${v.translation}</span>
+              <span class="text-[10px] uppercase tracking-widest opacity-80 mt-1 font-semibold">${v.pos}</span>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // ==========================================
+    // 5. 10-SENTENCE UNJUMBLE ENGINE
+    // ==========================================
+    const unjumbleSentences = {
+      basic: [
+        ["Videos", "make", "your", "brain", "feel", "tired."],
+        ["He", "loves", "watching", "silly", "videos", "online."],
+        ["The", "term", "is", "a", "modern", "invention."],
+        ["They", "spend", "too", "much", "time", "online."],
+        ["It", "is", "a", "funny", "way", "to", "describe", "it."],
+        ["The", "app", "shows", "very", "repetitive", "content."],
+        ["Brain", "rot", "is", "internet", "humor."],
+        ["Your", "brain", "will", "start", "to", "rot."],
+        ["The", "slang", "word", "means", "having", "charisma."],
+        ["It", "became", "a", "permanent", "part", "of", "life."]
+      ],
+      intermediate: [
+        ["Technology", "is", "changing", "our", "minds", "rapidly."],
+        ["The", "phrase", "evolved", "from", "an", "internet", "joke."],
+        ["People", "watch", "chaotic", "videos", "on", "their", "feeds."],
+        ["It", "serves", "as", "a", "serious", "warning."],
+        ["We", "need", "an", "urgent", "solution", "now."],
+        ["They", "watched", "a", "surreal", "video", "series."],
+        ["He", "laughed", "at", "the", "bizarre", "memes."],
+        ["Doctors", "worry", "about", "the", "cognitive", "effects."],
+        ["The", "prefrontal", "cortex", "controls", "your", "impulse."],
+        ["It", "is", "hard", "to", "resist", "distractions."]
+      ]
+    };
+    
+    let currentSentenceIndex = 0;
+    let currentJumble = [];
+
+    function initUnjumble() {
+      const sentenceList = unjumbleSentences[currentLevel];
+      const targetSentence = sentenceList[currentSentenceIndex];
+      
+      document.getElementById('unjumble-tracker').innerText = `${currentSentenceIndex + 1} / 10`;
+      currentJumble = [...targetSentence].sort(() => Math.random() - 0.5);
+      
+      const wordsContainer = document.getElementById('unjumble-words');
+      const dropzone = document.getElementById('unjumble-dropzone');
+      
+      wordsContainer.innerHTML = '';
+      dropzone.innerHTML = '';
+      dropzone.classList.remove('bg-green-100', 'border-green-500', 'bg-red-100', 'border-red-500');
+      
+      document.getElementById('unjumble-check-btn').classList.remove('hidden');
+      document.getElementById('unjumble-next-btn').classList.add('hidden');
+
+      currentJumble.forEach(word => {
+        const btn = document.createElement('button');
+        btn.className = "px-5 py-2.5 bg-white border border-slate-200 shadow-sm rounded-xl font-bold text-slate-700 hover:bg-slate-50 transition";
+        btn.innerText = word;
+        btn.onclick = () => moveJumbleWord(btn);
+        wordsContainer.appendChild(btn);
+      });
+    }
+
+    function moveJumbleWord(btn) {
+      const dropzone = document.getElementById('unjumble-dropzone');
+      const wordsContainer = document.getElementById('unjumble-words');
+      if (btn.parentElement.id === 'unjumble-words') {
+        dropzone.appendChild(btn);
+      } else {
+        wordsContainer.appendChild(btn);
+      }
+    }
+
+    function resetUnjumble() { initUnjumble(); }
+
+    function checkUnjumble() {
+      const dropzone = document.getElementById('unjumble-dropzone');
+      const currentOrder = Array.from(dropzone.children).map(btn => btn.innerText);
+      const targetSentence = unjumbleSentences[currentLevel][currentSentenceIndex];
+      
+      dropzone.classList.remove('bg-green-100', 'border-green-500', 'bg-red-100', 'border-red-500');
+
+      if (currentOrder.join(" ") === targetSentence.join(" ")) {
+        dropzone.classList.add('bg-green-100', 'border-green-500');
+        document.getElementById('unjumble-check-btn').classList.add('hidden');
+        document.getElementById('unjumble-next-btn').classList.remove('hidden');
+      } else {
+        dropzone.classList.add('bg-red-100', 'border-red-500');
+        setTimeout(() => dropzone.classList.remove('bg-red-100', 'border-red-500'), 1000);
+      }
+    }
+
+    function checkLocalAnswer(btn, isCorrect) {
+      const parent = btn.parentElement;
+      const buttons = parent.querySelectorAll('button');
+      buttons.forEach(b => {
+        b.classList.remove('bg-green-100', 'border-green-500', 'text-green-700', 'bg-red-100', 'border-red-500', 'text-red-700');
+        b.classList.add('hover:bg-slate-50');
+      });
+
+      if(isCorrect) {
+        btn.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+        btn.classList.remove('hover:bg-slate-50');
+      } else {
+        btn.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
+        btn.classList.remove('hover:bg-slate-50');
+      }
+    }
+
+    function nextUnjumbleSentence() {
+      currentSentenceIndex++;
+      if (currentSentenceIndex >= 10) {
+        alert("Congratulations! You completed all 10 sentences for this level.");
+        currentSentenceIndex = 0; 
+      }
+      initUnjumble();
+    }
+
+    // Initialization
+    window.onload = () => {
+      renderFlashcards();
+      initUnjumble();
+    };
+  </script>
+</body>
+</html>
