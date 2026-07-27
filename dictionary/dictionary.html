@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocabulary Dictionary | LearnESL</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    /* Custom UI Styling */
+    .ui-card { background: #ffffff; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(226,232,240,0.8); }
+    .bg-dark-header { background-color: #2d3748; }
+    .text-primary { color: #6174e1; }
+  </style>
+</head>
+<body class="bg-[#f8fafc] font-sans text-slate-800">
+
+  <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="../index.html" class="flex items-center gap-3">
+        <div class="bg-[#ff7b5a] text-white p-2.5 rounded-xl shadow-sm"><i class="fa-solid fa-book-open"></i></div>
+        <div>
+          <h1 class="text-xl font-extrabold text-slate-800 tracking-tight">LearnESL</h1>
+          <p class="text-[9px] font-bold text-slate-400 tracking-widest uppercase">Semester 1 • Fall 2026</p>
+        </div>
+      </a>
+      <div class="hidden md:flex gap-2 text-sm font-bold text-slate-500">
+        <a href="../index.html" class="px-5 py-2.5 hover:bg-slate-50 rounded-full flex items-center gap-2 transition"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="index.html" class="px-5 py-2.5 bg-[#e0f2fe] text-[#0284c7] rounded-full flex items-center gap-2 transition"><i class="fa-solid fa-book"></i> Dictionary</a>
+        <a href="../categories.html" class="px-5 py-2.5 hover:bg-slate-50 rounded-full flex items-center gap-2 transition"><i class="fa-solid fa-layer-group"></i> Categories</a>
+        <a href="../games.html" class="px-5 py-2.5 hover:bg-slate-50 rounded-full flex items-center gap-2 transition"><i class="fa-solid fa-gamepad"></i> Games</a>
+      </div>
+      <button class="text-xl text-slate-400 hover:text-slate-700 transition"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+  </nav>
+
+  <div class="bg-dark-header py-16 px-6 text-center text-white">
+    <div class="bg-[#6174e1] w-16 h-16 mx-auto rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-md"><i class="fa-solid fa-book-open"></i></div>
+    <h2 class="text-4xl font-black mb-4 tracking-tight">Vocabulary Dictionary</h2>
+    <p class="text-slate-300 text-lg mb-10 max-w-lg mx-auto">Search and learn new words. Discover their meanings, pronunciation, and see which lessons they appear in.</p>
+    
+    <div class="max-w-2xl mx-auto relative">
+      <input type="text" id="dict-search" placeholder="Search by English or Chinese..." 
+             class="w-full text-slate-800 px-6 py-4 rounded-2xl shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-500/30 text-lg font-medium pl-14 transition">
+      <i class="fa-solid fa-search absolute left-5 top-5 text-slate-400 text-lg"></i>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-6 py-12">
+    <div id="dictionary-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      </div>
+  </main>
+
+  <script>
+    // 1. YOUR VOCABULARY DATABASE (Updated with correct relative folder paths)
+    const vocabData = {
+      "algorithm": { 
+        word: "algorithm", translation: "演算法", pos: "noun", pronunciation: "/ˈæl.ɡə.rɪ.ðəm/", example: "The algorithm learns what videos you like to watch.", 
+        lessons: { "The Age of Brain Rot": "../pop-culture/brain-rot.html", "Rise of AI": "../technology/ai.html" } 
+      },
+      "dopamine": { 
+        word: "dopamine", translation: "多巴胺", pos: "noun", pronunciation: "/ˈdoʊ.pə.miːn/", example: "Dopamine is a chemical in the brain that makes you feel happy.", 
+        lessons: { "The Age of Brain Rot": "../pop-culture/brain-rot.html", "The Psychology of Color": "../health/psychology-color.html" } 
+      },
+      "fomo": { 
+        word: "FOMO", translation: "錯失恐懼症", pos: "noun", pronunciation: "/ˈfoʊ.moʊ/", example: "He bought the new shoes because of FOMO.", 
+        lessons: { "The Age of Brain Rot": "../pop-culture/brain-rot.html", "Social Media": "../technology/social-media.html" } 
+      },
+      "prefrontal_cortex": { 
+        word: "prefrontal cortex", translation: "前額葉皮質", pos: "noun", pronunciation: "/ˌpriː.frʌn.təl ˈkɔːr.teks/", example: "The prefrontal cortex helps you make good decisions.", 
+        lessons: { "The Age of Brain Rot": "../pop-culture/brain-rot.html" } 
+      },
+      "neuroplasticity": { 
+        word: "neuroplasticity", translation: "神經可塑性", pos: "noun", pronunciation: "/ˌnʊr.oʊ.plæsˈtɪs.ə.t̬i/", example: "Neuroplasticity means your brain can learn new things.", 
+        lessons: { "The Age of Brain Rot": "../pop-culture/brain-rot.html" } 
+      },
+      "absurd": { 
+        word: "absurd", translation: "荒謬的", pos: "adjective", pronunciation: "/əbˈsɝːd/", example: "The video about dancing toilets was completely absurd.", 
+        lessons: { "The Age of Brain Rot": "../pop-culture/brain-rot.html" } 
+      }
+    };
+
+    // 2. RENDER ENGINE (This automatically wraps your paths in <a href=""> tags)
+    function renderDictionary(filter = "") {
+      const grid = document.getElementById('dictionary-grid');
+      grid.innerHTML = '';
+      
+      Object.values(vocabData).forEach(v => {
+        if (filter && !v.word.toLowerCase().includes(filter.toLowerCase()) && !v.translation.includes(filter)) return;
+
+        // This map function generates the anchor tags for you!
+        let lessonLinks = Object.entries(v.lessons).map(([name, path]) => 
+          `<a href="${path}" class="text-xs font-bold text-[#ff6b6b] border border-red-200 rounded-full px-3 py-1 bg-red-50 hover:bg-red-100 uppercase tracking-wider flex items-center transition">
+            <i class="fa-solid fa-check mr-2"></i> ${name}
+          </a>`
+        ).join('');
+
+        const card = document.createElement('div');
+        card.className = 'ui-card p-8 flex flex-col hover:shadow-xl transition-shadow duration-300';
+        card.innerHTML = `
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-3xl font-black text-slate-800 capitalize">${v.word}</h3>
+            <button class="bg-slate-100 hover:bg-slate-200 text-slate-500 w-10 h-10 rounded-full transition"><i class="fa-solid fa-volume-high"></i></button>
+          </div>
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">${v.pronunciation} <span class="mx-1">•</span> ${v.pos}</p>
+          <p class="text-2xl text-primary font-bold mb-6">${v.translation}</p>
+          <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 italic text-slate-600 font-medium mb-6">"${v.example}"</div>
+          <div class="mt-auto border-t border-slate-100 pt-5">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Appears In</p>
+            <div class="flex flex-wrap gap-2">${lessonLinks}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // 3. SEARCH LOGIC
+    document.getElementById('dict-search').addEventListener('input', (e) => renderDictionary(e.target.value));
+
+    // Initialize
+    renderDictionary();
+  </script>
+</body>
+</html>
